@@ -1,0 +1,44 @@
+[project]
+name = "brettgws"
+description = "BrettGrand's Google Work Space facilitators"
+authors = [
+  { name = "Brett Grandbois", email = "50829393+brettgrand@users.noreply.github.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = [
+    "version"
+]
+dependencies = [
+    "google-api-python-client",
+    "google-auth-httplib2",
+    "google-auth-oauthlib"
+]
+
+[project.urls]
+Homepage = "https://github.com/brettgrand/brettgws"
+Repository = "https://github.com/brettgrand/brettgws.git"
+Issues = "https://github.com/brettgrand/brettgws/issues"
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+fallback-version = "0.0.0"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/brettgws/version.py"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
