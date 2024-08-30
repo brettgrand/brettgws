@@ -193,7 +193,7 @@ data = ssheet.getValues("Data!B2:C5", "ROWS")
 # data.values[1][1] is cell C3
 
 # get the Sheet object labeled 'Data', same on refereced above in A1
-sheet = ssheet\['Data'\]
+sheet = ssheet['Data']
 ```
 See doc on [ValueRange](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values#resource:-valuerange)
 to understand the major dimension.  Effectively its whether the list of lists
@@ -212,7 +212,7 @@ building up a sequence of commands until terminating with an .execute().
 So something like:
 ```python
 # assume we grabbed the ssheet as above
-sheet = ssheet\['Data'\]
+sheet = ssheet['Data']
 # add an extra row and 2 columns
 sheet.updateRequests().expandDimensions(1,2).execute()
 # reduce the sheet by 1 row
@@ -228,7 +228,7 @@ sheet.clearValues("B5:C5")
 # the dimension argument can take a variety of shorthand
 # notations like R, C, COLS
 from brettgws.sheets.resources import ValueRange
-range = ValueRange("B3:C3", "R", \[\["New Data B3", "New Data C3"\]\])
+range = ValueRange("B3:C3", "R", [["New Data B3", "New Data C3"]])
 sheet.updateValues(range)
 ```
 
