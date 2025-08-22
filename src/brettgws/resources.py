@@ -3,7 +3,7 @@ from typing import List
 
 class GoogleWorkSpaceResourceBase():
     """
-    Intended to be subclassed by a dataclass but isnt actually a dataclass.
+    Intended to be subclassed by a dataclass but isn't actually a dataclass.
     Provide a base __post_init__ here to just call fixup or leave it to subclasses?
     """
     def to_base(self) -> dict:

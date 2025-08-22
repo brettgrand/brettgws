@@ -52,7 +52,7 @@ class GoogleSpreadSheet():
     def __getitem__(self, item: str|int) -> GoogleSheet:
         """
         Get the sheet.  In this context if item is a
-        string that is by title and if it is an int is is by index,
+        string that is by title and if it is an int then is by index,
         index in this case meaning sheet index, not list index
         """
         if self._spreadsheet:

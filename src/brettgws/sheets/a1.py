@@ -31,8 +31,8 @@ class GoogleSheetsA1Notation():
             ToDo: Can you have unbounded start with a bounded end?  Need to check. 
 
         title:      The title of a sheet within a spreadsheet.  This may be blank,
-                    in which case the '!' delimeter will not be present, which means
-                    the first sheet within a spreadshet (ID 0).  A title may be quoted
+                    in which case the '!' delimiter will not be present, which means
+                    the first sheet within a spreadsheet (ID 0).  A title may be quoted
                     if it contains spaces or other non alphanumeric characters.
         start col:  Starting column of range, must be A-ZZZ or not present if unbounded.
         end col:    Ending column of range, must be A-ZZZ or not present if unbounded.
@@ -70,7 +70,7 @@ class GoogleSheetsA1Notation():
     @staticmethod
     def to_a1_list(vals: str|Self|list[str|Self]) -> list[Self]:
         """
-        Convenience funciton to turn a string or list of strings to A1 class.
+        Convenience function to turn a string or list of strings to A1 class.
         The intent is for converting from either user input or a response
         from the sheets service into easier to deal with A1 classes.
         """
@@ -121,7 +121,7 @@ class GoogleSheetsA1Notation():
         return self
 
     def valid(self) -> bool:
-        """If the A1 is present its been validated"""
+        """If the A1 is present it's been validated"""
         return bool(self._a1)
 
     def __bool__(self) -> bool:
@@ -154,7 +154,7 @@ class GoogleSheetsA1Notation():
     def reset(self) -> None:
         """
         Reset the state.
-        Empty _a1 means invlalid.
+        Empty _a1 means invalid.
         Empty/0 cols/rows means unbounded (assuming _a1 is valid)
         """
         self._a1 = ""
@@ -245,7 +245,7 @@ class GoogleSheetsA1Notation():
         a1 = str(sheet)
         if cls._a1_sheet_re.match(a1):
             # if someone passes in a string that does not already wrap uncool chars
-            # in a " or ' then we need to do it for them
+            # in an " or ' then we need to do it for them
             if not (a1[0] == '\'' or a1[0] == '\"'):
                 if not re.match(r"^[a-zA-Z]+\w*$", a1):
                     a1 = f'\"{a1}\"'
@@ -290,7 +290,7 @@ class GoogleSheetsA1Notation():
         If everything is 'false' (empty/0) then it is invalid.
 
         Note that an unbounded start row/col will be set to 1/A if there
-        in a corresponding col/row.  So for example blah!1:3 will be converted
+        is a corresponding col/row.  So for example blah!1:3 will be converted
         to blah!A1:3 and blah!A:F4 will be converted to blah!A1:F4 as we know
         what the start index must be
 
@@ -343,12 +343,12 @@ class GoogleSheetsA1Notation():
         title, sc, sr, ec, er = dims
         valid = True
         if not sc and not sr:
-            # cant have no start row or col but and end, for that you
+            # cant have no start row or col but an end, for that you
             # would use A: to mean 'from the beginning'
             valid = not(ec or er or not title)
         elif sc and ec:
             valid = cls.col_to_int(ec) >= cls.col_to_int(sc)
-        # colums have to be increasing but not necessarily rows
+        # columns have to be increasing but not necessarily rows
         # for example A5:B2 is valid but not B2:A5
         return valid
          
@@ -357,7 +357,7 @@ class GoogleSheetsA1Notation():
                   start_col: str|int|None = None, start_row: int|None = None,
                   end_col: str|int|None = None, end_row: int|None = None) -> str:
         """
-        Update the aspects of an exsting A1 string with supplied parameters.
+        Update the aspects of an existing A1 string with supplied parameters.
         A value of None for a parameter means do not update the existing value. 
         """
         s, sc, sr, ec, er = cls.extract_a1(a1)
@@ -520,7 +520,7 @@ class GoogleSheetsA1Notation():
                     if a.cols_bounded:
                         contained = a.start_col_int >= self._start_col_int and a.end_col_int <= self._end_col_int
                 else:
-                    # self is unbounded so therefore if 'sheet' is the same its contained
+                    # self is unbounded therefore if 'sheet' is the same its contained
                     contained = True
         return contained
       

@@ -327,7 +327,7 @@ class Event(GoogleWorkSpaceResourceBase):
                      end: str|datetime.date|datetime.datetime, tz: str|ZoneInfo|None = None) -> None:
         """
         Set the start and end date/time for the event.
-        A date object signals all-day event (no time) and is a distict field from datetime
+        A date object signals all-day event (no time) and is a distinct field from datetime
         so we need to work out what the intention is.  A start and end datetime with both
         at datetime.time.min (midnight) will consider all-day and convert to date
         Note that datetime is a subclass of date when comparing
@@ -397,8 +397,8 @@ class Event(GoogleWorkSpaceResourceBase):
         method = _get_service().events().list
         page_token = None
         cid = calendar_id.id if isinstance(calendar_id,Calendar) else str(calendar_id)
-        # we're being lazy with not specifying all of the query parameters
-        # so need to ensure this particular one isnt present
+        # we're being lazy with not specifying all the query parameters
+        # so need to ensure this particular one isn't present
         kwargs.pop('pageToken', None)
         # timeMin and timeMax are funny in that they MUST have the tz offset applied
         # so check here and adjust if possible

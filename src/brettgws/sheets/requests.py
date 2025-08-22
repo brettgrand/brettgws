@@ -8,14 +8,14 @@ from .a1 import GoogleSheetsA1Notation
 
 class GoogleSheetsUpdateRequestBase(GoogleWorkSpaceResourceBase):
     """
-    Base class for sheet batchUpdate requests to get the actua
+    Base class for sheet batchUpdate requests to get the actual
     request dict into the right format.
     """
     def to_request(self) -> dict[str,dict]:
         name = self.__class__.__name__
         # need to strip off the trailing 'Request' class name and
         # set the first letter to lower case.  could be done
-        # several ways but lets go re
+        # several ways but let's go re
         request = {}
         m = re.match("^([a-zA-Z])([a-zA-Z]+)Request$", name)
         if m:
@@ -60,7 +60,7 @@ class DeleteDimensionRequest(GoogleSheetsUpdateRequestBase):
         return b
 
 @dataclass
-class InsertDimensionRequst(GoogleSheetsUpdateRequestBase):
+class InsertDimensionRequest(GoogleSheetsUpdateRequestBase):
     """
     https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/request#insertdimensionrequest
     The 'range' indirection makes this a bit complicated, we want the DimensionRange

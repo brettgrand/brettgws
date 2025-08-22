@@ -24,7 +24,7 @@ class GoogleSheetsEnum():
         "FORMATTED_VALUE": "FORMATTED_VALUE",
         "UNFORMATTED": "UNFORMATTED_VALUE",
         "UNFORMATTED_VALUE": "UNFORMATTED_VALUE",
-        "FORMULA": "FORMAULA"
+        "FORMULA": "FORMULA"
     }
     _VALID_DATE_TIME_RENDER_OPTIONS = {
         "SERIAL": "SERIAL_NUMBER",
@@ -203,7 +203,7 @@ class GridRange(GoogleWorkSpaceResourceBase):
     sheetId: int = field(default=-1)
     startRowIndex: int|None = field(default=None)
     endRowIndex: int|None = field(default=None)
-    startColunmnIndex: int|None = field(default=None)
+    startColumnIndex: int|None = field(default=None)
     endColumnIndex: int|None = field(default=None)
 
     def __bool__(self) -> bool:

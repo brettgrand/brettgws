@@ -12,8 +12,8 @@ from .requests import *
 class GoogleSheet():
     """
     Class representation of a sheet.  In Google Sheets parlance a 'sheet' is
-    an invidual sheet from with a parent 'spreadsheet', the different tabs on
-    the spreadsheet itself.  Typcially this is what you would work with as this
+    an individual sheet from with a parent 'spreadsheet', the different tabs on
+    the spreadsheet itself.  Typically, this is what you would work with as this
     is where the data actually resides.  An actual request to a sheet would be
     addressed with spreadsheetId to the parent spreadsheet and sheetId which is
     the identifier of the sheet within that spreadsheet.  For a lot of operations
@@ -41,7 +41,7 @@ class GoogleSheet():
     @property
     def is_grid(self) -> bool:
         """
-        Easy way to determine if its a GRID sheet or not,
+        Easy way to determine if it's a GRID sheet or not,
         GRID being the usual grid of cells.
         """
         return self._props.sheetType == 'GRID'
@@ -106,7 +106,7 @@ class GoogleSheet():
     def batchUpdate(self, request: GoogleSheetsUpdateRequest|dict) -> GoogleSheetsUpdateRequestResponse:
         """
         Convenience method to update a sheet and will fill in the corresponding sheet
-        and spreadsheet IDs so the caller doens't have to.
+        and spreadsheet IDs so the caller doesn't have to.
         """
         response = batchUpdate(self._spreadsheetid, request)
         if response:
@@ -114,7 +114,7 @@ class GoogleSheet():
                 request.get("includeSpreadsheetInResponse", True)):
                 ss = response.updatedSpreadsheet
                 if not ss:
-                    raise RuntimeError("Spreadsheet should have been included in response but isnt?")
+                    raise RuntimeError("Spreadsheet should have been included in response but isn't?")
                 found_it = False
                 for s in ss.sheets:
                     if s.properties.sheetId == self.sheet_id:
@@ -135,7 +135,7 @@ class GoogleSheet():
 
     def clearValues(self, ranges: str|list[str|GoogleSheetsA1Notation]) -> ClearValuesRequestResponse:
         """
-        Set a range of cells in a seet to empty or blank
+        Set a range of cells in a sheet to empty or blank
         In the sheet context, need to confirm ranges are valid and
         have the correct sheet
         https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/batchClear
@@ -197,11 +197,11 @@ class GoogleSheet():
 
 class _SheetUpdateChain():
     """
-    Utility class for building up a chaing of update requests.
-    The spreadsheet batchUpdate method can take a list of requests at once
+    Utility class for building up a chaining of update requests.
+    The spreadsheet batchUpdate method can take a list of requests at once,
     and it is more efficient to provide a number of them at once rather than
     request/response/request/response/etc.  So this provides a means to add
-    a chain of requests and then terminate with execut().
+    a chain of requests and then terminate with execute().
     The idea is you would:
     response = sheet.updateRequests().request1(params).request2(params).execute()
     Where there can be any requestN(params)
@@ -325,7 +325,7 @@ class _SheetUpdateChain():
             elif index > self._sheet.cols:
                 raise ValueError("insertDimension(), col start index out of range")
             
-            request = InsertDimensionRequst(self._sheet.sheet_id, dim,
+            request = InsertDimensionRequest(self._sheet.sheet_id, dim,
                                             index, index + num, inheritFromBefore)
             self._requests.append(request)
             self._need_sheet_update = True

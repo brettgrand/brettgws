@@ -18,12 +18,12 @@ class __GWSAccess():
     Class encapsulating authenticated access to Google Workspace
     See https://developers.google.com/workspace/guides/create-credentials#choose_the_access_credential_that_is_right_for_you
     for an overview of what you'll need.  Once you've obtained a secrets file you can refer the object to it
-    for authentication.  For OAuth it will trigger the confirmation screens.  Sessions will be preserved
+    for authentication.  For OAuth, it will trigger the confirmation screens.  Sessions will be preserved
     and refreshed to confirmation does not need to happen repeatedly.
     Scopes are expected to be added by clients as needed and may trigger a refresh.
 
-    It makes no sense to have multiple authenticated sessions per application so do this as a module singleton
-    and then its simple to do the service retrieval (which is what most clients are really after) as a decorator.
+    It makes no sense to have multiple authenticated sessions per application so do this as a module singleton,
+    and then it's simple to do the service retrieval (which is what most clients are really after) as a decorator.
     """
 
     __SCOPES = {
@@ -31,7 +31,7 @@ class __GWSAccess():
         "sheets-ro": "https://www.googleapis.com/auth/spreadsheets.readonly",
         "drive-file": "https://www.googleapis.com/auth/drive.file",
         "drive": "https://www.googleapis.com/auth/drive",
-        "drvie-ro": "https://www.googleapis.com/auth/drive.readonly",
+        "drive-ro": "https://www.googleapis.com/auth/drive.readonly",
         "calendar": "https://www.googleapis.com/auth/calendar",
         "calendar-ro": "https://www.googleapis.com/auth/calendar.readonly",
         "events": "https://www.googleapis.com/auth/calendar.events",
@@ -178,7 +178,7 @@ class __GWSAccess():
     def append_scopes(self, *args) -> bool:
         """
         Adding to the current scope list.
-        Typically it is intended that client dependent modules will add the specific
+        Typically, it is intended that client dependent modules will add the specific
         scopes they require on init.
         """
         for a in args:
@@ -191,7 +191,7 @@ class __GWSAccess():
 
     def scope_in_session(self, scope: str) -> bool:
         """
-        Is the specified scope in the currently authenicated session?
+        Is the specified scope in the currently authenticated session?
         """
         s = self.get_scope(scope)
         return s and self.connected and (s in self.session_scopes)
@@ -214,7 +214,7 @@ class __GWSAccess():
     def config(self) -> dict:
         """
         Get all configuration state as a dict.
-        Convenience for getting it all at once for pushing into a json, toml, ini, etc, file.
+        Convenience for getting it all at once for pushing into a json, toml, ini, etc., file.
         """
         config = {
             'secrets': self.__secrets,
@@ -341,15 +341,15 @@ class __GWSAccess():
                 else:
                     # final hail mary
                     try:
-                        # this will look at the GOOGLE_APPLICATION_CREDENTIALS envvar and
+                        # this will look at the GOOGLE_APPLICATION_CREDENTIALS environment variable and
                         # other cloud default locations
                         self.__creds, _ = google.auth.default(requested_scopes)
                     except google.auth.exceptions.DefaultCredentialsError:
                         pass
 
             if self.connected:
-                # whoa it took a while to track through what was needed for a refresh
-                # scopes isnt even necessary, that's just to see what the scopes were
+                # whoa, it took a while to track through what was needed for a refresh
+                # scopes isn't even necessary, that's just to see what the scopes were
                 # we could feed them back in to from_authorized_user_file but the caller may have different scopes in mind
                 user_info = {'refresh_token': self.__creds.refresh_token, 'client_id': self.__creds.client_id, 
                             'client_secret': self.__creds.client_secret, 'scopes': requested_scopes}
